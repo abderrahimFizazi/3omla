@@ -24,7 +24,7 @@ const About = ({ title, description, steps }) => {
                   onMouseEnter={() => handleStepClick(index)}
                   onMouseLeave={() => handleStepClick(null)}
                 >
-                  <div className="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center">
                     <span className="text-lg">{index + 1}</span>
                   </div>
                   <p
@@ -40,7 +40,7 @@ const About = ({ title, description, steps }) => {
           )}
         </div>
         <div className="mt-8">
-          <button className="bg-purple-500 text-white py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 ease-in-out hover:bg-purple-600">
+          <button className="bg-green-500 text-white py-3 px-6 rounded-full font-semibold shadow-lg transition duration-300 ease-in-out hover:bg-purple-600">
             Get Started
           </button>
         </div>

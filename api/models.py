@@ -1,103 +1,82 @@
 from sqlalchemy import Column, Integer, String, Enum, Date, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-from enum import Enum as PyEnum
 
 Base = declarative_base()
 
 
-class UserType(str, PyEnum):
-    admin = 'admin'
-    utilisateur = 'utilisateur'
-    partenaire = 'partenaire'
-
-
-class PaymentStatus(str, PyEnum):
-    payé = 'payé'
-    en_attente = 'en attente'
-    en_retard = 'en retard'
-
-
-class PaymentMethod(str, PyEnum):
-    carte_credit = 'carte_credit'
-    paypal = 'paypal'
-    virement_bancaire = 'virement_bancaire'
-
-
-class Utilisateur(Base):
-    __tablename__ = 'utilisateur'
+class User(Base):
+    __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    nom = Column(String)
-    email = Column(String)
-    adresse = Column(String)
-    type_utilisateur = Column(Enum(UserType, native_enum=False), nullable=False)
-    score = Column(Integer)
-    date_inscription = Column(DateTime)
-    derniere_connexion = Column(DateTime)
+    name = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=False)
+    address = Column(String(255))
+    id_card_number = Column(String(20))
+    photo_url = Column(String(255))
+    user_type = Column(Enum('admin', 'user', 'partner'), nullable=False)
+    score = Column(Integer, default=0)
+    registration_date = Column(DateTime, nullable=False)
+    last_login = Column(DateTime)
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, nullable=False)
 
-    abonnements = relationship("Abonnement", back_populates="utilisateur")
-    services = relationship("Utilisateur_Service", back_populates="utilisateur")
-    paiements = relationship("Statut_Paiement", back_populates="utilisateur")
-    notifications = relationship("Notification", back_populates="utilisateur")
-
-
-class Abonnement(Base):
-    __tablename__ = 'abonnement'
-
-    id = Column(Integer, primary_key=True)
-    utilisateur_id = Column(Integer, ForeignKey('utilisateur.id'))
-    date_debut = Column(Date)
-    date_fin = Column(Date)
-
-    utilisateur = relationship("Utilisateur", back_populates="abonnements")
+    services = relationship('User_Service', back_populates='user')
 
 
 class Service(Base):
-    __tablename__ = 'service'
+    __tablename__ = 'services'
 
     id = Column(Integer, primary_key=True)
-    nom = Column(String)
+    name = Column(String(255), nullable=False)
     description = Column(String)
-    cout = Column(Integer)
+    cost = Column(String(255), nullable=False)
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, nullable=False)
 
-    utilisateurs = relationship("Utilisateur_Service", back_populates="service")
-
-
-class Utilisateur_Service(Base):
-    __tablename__ = 'utilisateur_service'
-
-    id = Column(Integer, primary_key=True)
-    utilisateur_id = Column(Integer, ForeignKey('utilisateur.id'))
-    service_id = Column(Integer, ForeignKey('service.id'))
-    abonnement_id = Column(Integer, ForeignKey('abonnement.id'))
-    date_debut = Column(Date)
-    date_fin = Column(Date)
-
-    utilisateur = relationship("Utilisateur", back_populates="services")
-    service = relationship("Service", back_populates="utilisateurs")
-    abonnement = relationship("Abonnement")
+    users = relationship('User_Service', back_populates='service')
 
 
-class Statut_Paiement(Base):
-    __tablename__ = 'statut_paiement'
+class User_Service(Base):
+    __tablename__ = 'user_services'
 
     id = Column(Integer, primary_key=True)
-    utilisateur_id = Column(Integer, ForeignKey('utilisateur.id'))
-    statut = Column(Enum(PaymentStatus, native_enum=False))
-    date_paiement = Column(Date)
-    methode_paiement = Column(Enum(PaymentMethod, native_enum=False))
+    user_id = Column(Integer, ForeignKey('users.id'))
+    service_id = Column(Integer, ForeignKey('services.id'))
+    start_date = Column(Date, nullable=False)
+    end_date = Column(Date, nullable=False)
+    status = Column(Enum('paid', 'pending', 'late'), nullable=False)
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, nullable=False)
 
-    utilisateur = relationship("Utilisateur", back_populates="paiements")
+    user = relationship('User', back_populates='services')
+    service = relationship('Service', back_populates='users')
+    payments = relationship('Payment', back_populates='user_service')
+    notifications = relationship('Notification', back_populates='user_service')
+
+
+class Payment(Base):
+    __tablename__ = 'payments'
+
+    id = Column(Integer, primary_key=True)
+    user_service_id = Column(Integer, ForeignKey('user_services.id'))
+    payment_date = Column(Date, nullable=False)
+    payment_method = Column(Enum('credit_card', 'paypal', 'bank_transfer', 'partner'), nullable=False)
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, nullable=False)
+
+    user_service = relationship('User_Service', back_populates='payments')
 
 
 class Notification(Base):
-    __tablename__ = 'notification'
+    __tablename__ = 'notifications'
 
     id = Column(Integer, primary_key=True)
-    utilisateur_id = Column(Integer, ForeignKey('utilisateur.id'))
-    message = Column(String)
-    date_notification = Column(DateTime)
-    lu = Column(Boolean)
+    user_service_id = Column(Integer, ForeignKey('user_services.id'))
+    message = Column(String, nullable=False)
+    notification_date = Column(DateTime, nullable=False)
+    is_read = Column(Boolean, default=False)
+    created_at = Column(DateTime, nullable=False)
+    updated_at = Column(DateTime, nullable=False)
 
-    utilisateur = relationship("Utilisateur", back_populates="notifications")
+    user_service = relationship('User_Service', back_populates='notifications')
