@@ -22,7 +22,7 @@ const Pricing = ({ title, description, plans }) => {
                   </li>
                 ))}
               </ul>
-              <button className="bg-purple-500 text-white py-2 px-4 mt-6 rounded-full shadow-md hover:bg-purple-600 transition duration-300 ease-in-out">
+              <button className="bg-green-500 text-white py-2 px-4 mt-6 rounded-full shadow-md hover:bg-green-600 transition duration-300 ease-in-out">
                 Get Started
                 <FaArrowRight className="inline-block ml-2" />
               </button>

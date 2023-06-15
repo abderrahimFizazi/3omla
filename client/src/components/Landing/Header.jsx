@@ -36,7 +36,7 @@ const Header = ({ logo, menuItems, isDarkMode, handleToggle, handleLanguageToggl
           {menuItems.map((menuItem, index) => (
             <li
               key={index}
-              className="cursor-pointer text-gray-800 dark:text-white hover:text-purple-500"
+              className="cursor-pointer text-gray-800 dark:text-white hover:text-green-500"
               onClick={() => handleClick(menuItem.link)}
             >
               {menuItem.text}
