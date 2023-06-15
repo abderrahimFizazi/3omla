@@ -1,0 +1,96 @@
+{
+  "header": {
+    "logo": "Eomla Billing",
+    "menuItems": [
+      {
+        "text": "Accueil",
+        "link": "hero"
+      },
+      {
+        "text": "À propos",
+        "link": "about"
+      },
+      {
+        "text": "Fonctionnalités",
+        "link": "features"
+      },
+      {
+        "text": "Tarification",
+        "link": "pricing"
+      },
+      {
+        "text": "Contact",
+        "link": "contact"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Bienvenue sur Eomla Billing",
+    "description": "Découvrez Eomla Billing, une solution de facturation complète pour simplifier la gestion de vos factures et paiements."
+  },
+  "about": {
+    "title": "À propos d'Eomla Billing",
+    "description": "Eomla Billing est une application de facturation puissante qui vous permet de gérer facilement vos factures, suivre les paiements et gérer les clients. Simplifiez votre processus de facturation avec Eomla Billing.",
+    "steps": [
+      "Créez et envoyez des factures professionnelles",
+      "Suivez les paiements et les soldes des clients",
+      "Gérez les informations des clients et les détails de facturation",
+      "Générez des rapports et des analyses financières",
+      "Automatisez les rappels de paiement et les notifications"
+    ]
+  },
+  "features": {
+    "title": "Principales fonctionnalités",
+    "list": [
+      "Création et envoi de factures personnalisées",
+      "Suivi des paiements et des soldes des clients",
+      "Gestion centralisée des informations clients",
+      "Génération de rapports financiers et d'analyses",
+      "Automatisation des rappels de paiement et notifications"
+    ]
+  },
+  "pricing": {
+    "title": "Tarification",
+    "description": "Choisissez le plan tarifaire qui correspond le mieux à vos besoins.",
+    "plans": [
+      {
+        "name": "Plan de base",
+        "price": "$19/mois",
+        "features": [
+          "Création et envoi de factures",
+          "Suivi des paiements",
+          "Gestion des clients"
+        ]
+      },
+      {
+        "name": "Plan Pro",
+        "price": "$39/mois",
+        "features": [
+          "Toutes les fonctionnalités du plan de base",
+          "Génération de rapports",
+          "Automatisation des rappels de paiement"
+        ]
+      },
+      {
+        "name": "Plan Entreprise",
+        "price": "$99/mois",
+        "features": [
+          "Toutes les fonctionnalités du plan Pro",
+          "Intégration avec d'autres systèmes",
+          "Assistance prioritaire"
+        ]
+      }
+    ]
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "description": "Si vous avez des questions ou des demandes de renseignements, n'hésitez pas à nous contacter.",
+    "contactInfo": {
+      "email": "contact@eomlabilling.com",
+      "phone": "+1 (123) 456-7890"
+    }
+  },
+  "footer": {
+    "text": "© 2023 Eomla Billing. Tous droits réservés."
+  }
+}
